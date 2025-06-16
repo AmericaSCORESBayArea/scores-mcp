@@ -1,0 +1,36 @@
+{
+  "name": "scores-mcp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "scores-mcp": "./build/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && chmod 755 build/index.js"
+  },
+  "files": [
+    "build"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmericaSCORESBayArea/scores-mcp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AmericaSCORESBayArea/scores-mcp/issues"
+  },
+  "homepage": "https://github.com/AmericaSCORESBayArea/scores-mcp#readme",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.3",
+    "zod": "^3.25.64"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.1",
+    "typescript": "^5.8.3"
+  }
+}
