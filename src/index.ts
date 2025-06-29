@@ -1,6 +1,9 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { registerAddTwoNumbersTool } from "./addTwoNumbers";
+import { registerRunSoqlQueryTool } from "./runSoqlQuery.js";
+import { registerValidateSoqlQueryTool } from "./validateSoqlQuery.js";
+import { registerDescribeGlobalTool } from "./describeGlobal.js";
+import { registerDescribeObjectTool } from "./describeObject.js";
 
 // Create server instance
 const server = new McpServer({
@@ -12,7 +15,10 @@ const server = new McpServer({
   },
 });
 
-registerAddTwoNumbersTool(server);
+registerRunSoqlQueryTool(server);
+registerValidateSoqlQueryTool(server);
+registerDescribeGlobalTool(server);
+registerDescribeObjectTool(server);
 
 async function main() {
     const transport = new StdioServerTransport();
