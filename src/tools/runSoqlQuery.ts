@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import { z } from "zod";
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
 import dotenv from 'dotenv'; 
 dotenv.config();
 
@@ -41,6 +41,7 @@ export function registerRunSoqlQueryTool(server: McpServer) {
       }
       const data = await response.json();
       return {
+        status: response.status,
         content: [
           {
             type: "text",

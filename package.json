@@ -6,9 +6,9 @@
   "bin": {
     "scores-mcp": "./build/index.js"
   },
-
   "scripts": {
-    "test": "jest",
+    "test": "vitest run",
+    "test-ui": "vitest --ui",
     "build": "tsc"
   },
   "files": [
@@ -35,10 +35,9 @@
     "zod": "^3.25.64"
   },
   "devDependencies": {
-    "@types/jest": "^30.0.0",
     "@types/node": "^24.0.1",
-    "jest": "^30.0.3",
-    "ts-jest": "^29.4.0",
-    "typescript": "^5.8.3"
+    "@vitest/ui": "^3.2.4",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   }
 }

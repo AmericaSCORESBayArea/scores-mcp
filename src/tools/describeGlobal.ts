@@ -1,7 +1,8 @@
 import fetch from "node-fetch";
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
 import dotenv from 'dotenv';
 import { SalesforceGlobal } from "@types";
+import { filterSalesforceGlobal } from "@utils";
 dotenv.config();
 
 const SALESFORCE_DIRECT_API_URL = process.env.SALESFORCE_DIRECT_API_URL;
@@ -36,11 +37,13 @@ export function registerDescribeGlobalTool(server: McpServer) {
         throw new Error(`Describe Global API error: ${response.status} ${response.statusText}. Response: ${errorText}`);
       }
       const data = await response.json() as SalesforceGlobal;
+      const filteredData = filterSalesforceGlobal(data);
       return {
+        status: response.status,
         content: [
           {
             type: "text",
-            text: JSON.stringify(data, null, 2),
+            text: JSON.stringify(filteredData, null, 2),
           },
         ],
       };

@@ -1,14 +1,15 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { registerDescribeGlobalTool } from '../../src/tools/describeGlobal';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 
-jest.mock('node-fetch', () => jest.fn());
-const fetch = require('node-fetch');
+vi.mock('node-fetch', () => vi.fn());
+const fetch = await import('node-fetch');
 
 describe('registerDescribeGlobalTool', () => {
   let server: any;
 
   beforeEach(() => {
-    server = { tool: jest.fn() };
+    server = { tool: vi.fn() };
     process.env.SALESFORCE_DIRECT_API_URL = 'http://mock.api';
     process.env.SALESFORCE_DIRECT_CLIENT_ID = 'mock-client-id';
     process.env.SALESFORCE_DIRECT_CLIENT_SECRET = 'mock-client-secret';
@@ -20,10 +21,10 @@ describe('registerDescribeGlobalTool', () => {
   });
 
   it('handles API response correctly', async () => {
-    fetch.mockResolvedValue({
+    vi.mocked(fetch.default).mockResolvedValue({
       ok: true,
       json: async () => ({ mock: 'data' }),
-    });
+    } as any);
     registerDescribeGlobalTool(server as unknown as McpServer);
     const toolCall = server.tool.mock.calls[0][4];
     const result = await toolCall();
@@ -31,12 +32,12 @@ describe('registerDescribeGlobalTool', () => {
   });
 
   it('throws error on API failure', async () => {
-    fetch.mockResolvedValue({
+    vi.mocked(fetch.default).mockResolvedValue({
       ok: false,
       status: 500,
       statusText: 'Internal Server Error',
       text: async () => 'Error details',
-    });
+    } as any);
     registerDescribeGlobalTool(server as unknown as McpServer);
     const toolCall = server.tool.mock.calls[0][4];
     await expect(toolCall()).rejects.toThrow('Describe Global API error');

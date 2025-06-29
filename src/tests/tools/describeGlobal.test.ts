@@ -1,30 +1,32 @@
-import { registerDescribeGlobalTool } from '../../tools/describeGlobal.js';
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import fetch from 'node-fetch';
+import { describe, it, expect } from 'vitest';
+import { registerDescribeGlobalTool } from '../../tools/describeGlobal';
+import dotenv from 'dotenv';
 
-jest.mock('node-fetch', () => jest.fn());
+// Load environment variables
+dotenv.config();
 
-describe('registerDescribeGlobalTool', () => {
-  let server: any;
-
-  beforeEach(() => {
-    server = { tool: jest.fn() };
+describe('describeGlobal Tool', () => {
+  it('has required environment variables', () => {
+    expect(process.env.SALESFORCE_DIRECT_API_URL).toBeDefined();
+    expect(process.env.SALESFORCE_DIRECT_CLIENT_ID).toBeDefined();
+    expect(process.env.SALESFORCE_DIRECT_CLIENT_SECRET).toBeDefined();
   });
 
-  it('registers the tool with the server', () => {
-    registerDescribeGlobalTool(server as unknown as McpServer);
-    expect(server.tool).toHaveBeenCalled();
+  it('makes real API call and returns 200 with defined content', async () => {
+    let toolHandler: (() => Promise<any>) | undefined;
+    const mockServer: any = {
+      tool: (_name: any, _desc: any, _input: any, _hints: any, handler: any) => {
+        toolHandler = handler;
+      }
+    };
+    registerDescribeGlobalTool(mockServer);
+    expect(toolHandler).toBeDefined();
+    const result = await toolHandler!();
+    expect(result.status).toBe(200);
+    expect(result.content).toBeDefined();
+    expect(Array.isArray(result.content)).toBe(true);
+    expect(result.content.length).toBeGreaterThan(0);
+    expect(result.content[0].text).toBeDefined();
+    console.log("Test content:", result.content);
   });
-
-  it('handles 200 response correctly', async () => {
-    (fetch as jest.Mock).mockResolvedValue({
-      ok: true,
-      status: 200,
-      json: async () => ({ success: true }),
-    });
-    registerDescribeGlobalTool(server as unknown as McpServer);
-    const toolCall = server.tool.mock.calls[0][4];
-    const result = await toolCall();
-    expect(result.content[0].text).toContain('\"success\": true');
-  });
-}); 
+});

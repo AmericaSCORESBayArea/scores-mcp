@@ -1,20 +1,21 @@
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 
 // Mock the MCP SDK
-jest.mock('@modelcontextprotocol/sdk/server/mcp.js');
-jest.mock('@modelcontextprotocol/sdk/server/stdio.js');
+vi.mock('@modelcontextprotocol/sdk/server/mcp.js');
+vi.mock('@modelcontextprotocol/sdk/server/stdio.js');
 
 // Mock all tool registration functions
-jest.mock('../src/tools/runSoqlQuery.js');
-jest.mock('../src/tools/validateSoqlQuery.js');
-jest.mock('../src/tools/describeGlobal.js');
-jest.mock('../src/tools/describeObject.js');
+vi.mock('../src/tools/runSoqlQuery.js');
+vi.mock('../src/tools/validateSoqlQuery.js');
+vi.mock('../src/tools/describeGlobal.js');
+vi.mock('../src/tools/describeObject.js');
 
-const { registerRunSoqlQueryTool } = require('../src/tools/runSoqlQuery.js');
-const { registerValidateSoqlQueryTool } = require('../src/tools/validateSoqlQuery.js');
-const { registerDescribeGlobalTool } = require('../src/tools/describeGlobal.js');
-const { registerDescribeObjectTool } = require('../src/tools/describeObject.js');
+const { registerRunSoqlQueryTool } = await import('../src/tools/runSoqlQuery.js');
+const { registerValidateSoqlQueryTool } = await import('../src/tools/validateSoqlQuery.js');
+const { registerDescribeGlobalTool } = await import('../src/tools/describeGlobal.js');
+const { registerDescribeObjectTool } = await import('../src/tools/describeObject.js');
 
 describe('MCP Server Setup', () => {
   let mockServer: any;
@@ -22,26 +23,26 @@ describe('MCP Server Setup', () => {
 
   beforeEach(() => {
     // Reset all mocks
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
     // Mock server instance
     mockServer = {
-      connect: jest.fn(),
+      connect: vi.fn(),
     };
 
     // Mock transport
     mockTransport = {};
 
     // Mock the constructors
-    (McpServer as jest.MockedClass<typeof McpServer>).mockImplementation(() => mockServer);
-    (StdioServerTransport as jest.MockedClass<typeof StdioServerTransport>).mockImplementation(() => mockTransport);
+    vi.mocked(McpServer).mockImplementation(() => mockServer);
+    vi.mocked(StdioServerTransport).mockImplementation(() => mockTransport);
 
     // Mock console.error to avoid noise in tests
-    jest.spyOn(console, 'error').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it('creates server with correct configuration', () => {

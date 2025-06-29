@@ -1,8 +1,9 @@
 import fetch from "node-fetch";
 import { z } from "zod";
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
 import dotenv from 'dotenv';
 import { SalesforceObject } from "@types";
+import { filterSalesforceObject } from "@utils";
 
 dotenv.config();
 
@@ -39,12 +40,14 @@ export function registerDescribeObjectTool(server: McpServer) {
         let errorText = await response.text();
         throw new Error(`Describe Object API error: ${response.status} ${response.statusText}. Response: ${errorText}`);
       }
-      const data = await response.json() as SalesforceObject; 
+      const data = await response.json() as SalesforceObject;
+      const filteredData = filterSalesforceObject(data);
       return {
+        status: response.status,
         content: [
           {
             type: "text",
-            text: JSON.stringify(data, null, 2),
+            text: JSON.stringify(filteredData, null, 2),
           },
         ],
       };

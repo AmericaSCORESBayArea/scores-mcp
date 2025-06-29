@@ -1,9 +1,9 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { registerRunSoqlQueryTool } from "./tools/runSoqlQuery.js";
-import { registerValidateSoqlQueryTool } from "./tools/validateSoqlQuery.js";
-import { registerDescribeGlobalTool } from "./tools/describeGlobal.js";
-import { registerDescribeObjectTool } from "./tools/describeObject.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio";
+import { registerRunSoqlQueryTool } from "./tools/runSoqlQuery";
+import { registerValidateSoqlQueryTool } from "./tools/validateSoqlQuery";
+import { registerDescribeGlobalTool } from "./tools/describeGlobal";
+import { registerDescribeObjectTool } from "./tools/describeObject";
 
 // Create server instance
 const server = new McpServer({
