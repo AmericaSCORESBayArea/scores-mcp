@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import dotenv from 'dotenv';
 import { SalesforceGlobal } from "@types";
 import { filterSalesforceGlobal } from "@utils";

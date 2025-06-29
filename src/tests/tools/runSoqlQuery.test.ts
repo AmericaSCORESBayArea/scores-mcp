@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { registerRunSoqlQueryTool } from '../../tools/runSoqlQuery';
+import { registerRunSoqlQueryTool } from '../../tools/runSoqlQuery.js';
 import dotenv from 'dotenv';
 
 dotenv.config();

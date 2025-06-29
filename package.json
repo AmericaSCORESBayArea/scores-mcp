@@ -9,7 +9,7 @@
   "scripts": {
     "test": "vitest run",
     "test-ui": "vitest --ui",
-    "build": "tsc"
+    "build": "tsc && tsc-alias"
   },
   "files": [
     "build"
@@ -31,12 +31,12 @@
     "@modelcontextprotocol/sdk": "^1.12.3",
     "dotenv": "^17.0.0",
     "node-fetch": "^3.3.2",
-    "ts-node": "^10.9.2",
     "zod": "^3.25.64"
   },
   "devDependencies": {
     "@types/node": "^24.0.1",
     "@vitest/ui": "^3.2.4",
+    "tsc-alias": "^1.8.16",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"
   }

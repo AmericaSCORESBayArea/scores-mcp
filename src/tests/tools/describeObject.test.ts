@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { registerDescribeObjectTool } from '../../tools/describeObject';
+import { registerDescribeObjectTool } from '../../tools/describeObject.js';
 import dotenv from 'dotenv';
 
 dotenv.config();

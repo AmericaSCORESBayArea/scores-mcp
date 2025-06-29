@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { registerDescribeGlobalTool } from '../../tools/describeGlobal';
+import { registerDescribeGlobalTool } from '../../tools/describeGlobal.js';
 import dotenv from 'dotenv';
 
 // Load environment variables

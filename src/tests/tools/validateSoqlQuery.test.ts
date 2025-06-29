@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { registerValidateSoqlQueryTool } from '../../tools/validateSoqlQuery';
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp';
+import { registerValidateSoqlQueryTool } from '../../tools/validateSoqlQuery.js';
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 
 // Mock the soql-parser-js package
 vi.mock('@jetstreamapp/soql-parser-js', () => ({

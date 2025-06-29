@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import { z } from "zod";
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import dotenv from 'dotenv';
 import { SalesforceObject } from "@types";
 import { filterSalesforceObject } from "@utils";
