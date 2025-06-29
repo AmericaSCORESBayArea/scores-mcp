@@ -125,11 +125,21 @@ export interface FilteredLookupInfo {
   dependent: boolean
 }
 
-type FilteredField = Pick<Field, "name" | "fieldType" | "picklistValues">
-type FilteredChildRelationship = Pick<ChildRelationship, "childSObject" | "relationshipName" | "field">
-type FilteredSobject = Pick<SalesforceObject, "name">
 
-export type SalesforceObjectFiltered = FilteredSobject & {
+export interface FilteredChildRelationship {
+  childSObject: string
+  relationshipName: string
+  field: string
+}
+
+interface FilteredField {
+  name: string
+  fieldType: string
+  picklistValues?: string[] | null
+}
+
+export type SalesforceObjectFiltered = {
+    name: string
     fields: FilteredField[]
-    childRelationships: FilteredChildRelationship[]
+    childRelationships?: FilteredChildRelationship[] | null
 }
