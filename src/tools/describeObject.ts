@@ -2,6 +2,8 @@ import fetch from "node-fetch";
 import { z } from "zod";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import dotenv from 'dotenv';
+import { SalesforceObject } from "@types";
+
 dotenv.config();
 
 const SALESFORCE_DIRECT_API_URL = process.env.SALESFORCE_DIRECT_API_URL;
@@ -37,7 +39,7 @@ export function registerDescribeObjectTool(server: McpServer) {
         let errorText = await response.text();
         throw new Error(`Describe Object API error: ${response.status} ${response.statusText}. Response: ${errorText}`);
       }
-      const data = await response.json();
+      const data = await response.json() as SalesforceObject; 
       return {
         content: [
           {
