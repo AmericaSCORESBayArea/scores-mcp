@@ -6,8 +6,9 @@
   "bin": {
     "scores-mcp": "./build/index.js"
   },
+
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "tsc"
   },
   "files": [
@@ -34,7 +35,10 @@
     "zod": "^3.25.64"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.0.1",
+    "jest": "^30.0.3",
+    "ts-jest": "^29.4.0",
     "typescript": "^5.8.3"
   }
 }
